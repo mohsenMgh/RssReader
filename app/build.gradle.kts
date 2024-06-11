@@ -120,4 +120,7 @@ dependencies {
     // Koin for Android
     val koinVersion = "3.5.6"
     implementation(libs.koin.androidx.compose)
+
+    //Coil
+    implementation("io.coil-kt:coil-compose:2.1.0")
 }

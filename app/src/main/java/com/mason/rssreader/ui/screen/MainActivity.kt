@@ -9,16 +9,13 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainActivity : ComponentActivity() {
+    private val viewModel: NewsViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-//        startKoin {
-//            androidContext(this@MainActivity)
-//            modules(appModule)
-//        }
         setContent {
             RssReaderTheme {
-                val viewModel: NewsViewModel by viewModel()
                 RssReaderApp(viewModel)
             }
         }
