@@ -161,6 +161,7 @@ fun ArticleItem(article: Item, isTopArticle: Boolean) {
         }
     }
 }
+
 fun formatDate(dateString: String?): String {
     return if (dateString != null) {
         try {
