@@ -19,7 +19,33 @@ class ApiServiceImplTest {
         engine {
             addHandler { request ->
                 respond(
-                    content = """{"status":"ok","items":[{"title":"News title"}]}""",
+                    content = """{
+                        "status": "ok",
+                        "feed": {
+                            "url": "http://www.abc.net.au/news/feed/51120/rss.xml",
+                            "title": "ABC News",
+                            "link": "http://www.abc.net.au/news",
+                            "author": "ABC",
+                            "description": "Latest news from ABC",
+                            "image": "http://www.abc.net.au/image.jpg"
+                        },
+                        "items": [{
+                            "title": "News title",
+                            "pubDate": "2024-06-11",
+                            "link": "http://www.abc.net.au/news/story",
+                            "guid": "12345",
+                            "author": "Author Name",
+                            "thumbnail": "http://www.abc.net.au/thumbnail.jpg",
+                            "description": "News Description",
+                            "content": "News Content",
+                            "enclosure": {
+                                "link": "http://www.abc.net.au/enclosure",
+                                "type": "image/jpeg",
+                                "thumbnail": "http://www.abc.net.au/enclosure-thumbnail.jpg"
+                            },
+                            "categories": ["Category1", "Category2"]
+                        }]
+                    }""",
                     status = HttpStatusCode.OK,
                     headers = headersOf("Content-Type" to listOf(ContentType.Application.Json.toString()))
                 )
