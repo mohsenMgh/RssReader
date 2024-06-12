@@ -104,7 +104,7 @@ fun ArticleItem(article: Item, isTopArticle: Boolean) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
-                    .height(150.dp)
+                    .height(130.dp)
             ) {
                 Column(
                     verticalArrangement = Arrangement.Center,

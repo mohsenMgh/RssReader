@@ -25,7 +25,6 @@ class MainActivity : ComponentActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge() // Enable edge-to-edge display
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) // Set the screen orientation to portrait
         setContent {
             // Set the content view using Jetpack Compose and the app's theme

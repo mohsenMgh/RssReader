@@ -27,15 +27,6 @@ import com.mason.rssreader.viewmodel.NewsViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RssReaderApp(viewModel: NewsViewModel) {
-    val systemUiController = rememberSystemUiController()
-
-    // Side effect to set the status bar color to black
-    SideEffect {
-        systemUiController.setStatusBarColor(
-            color = Color.Black,
-            darkIcons = false
-        )
-    }
 
     // Scaffold to set up the basic structure of the app with a top bar
     Scaffold(
