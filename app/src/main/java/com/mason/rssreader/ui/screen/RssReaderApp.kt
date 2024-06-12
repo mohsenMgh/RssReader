@@ -1,4 +1,5 @@
 package com.mason.rssreader.ui.screen
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,22 +15,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.compose.ui.Modifier
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.mason.rssreader.viewmodel.NewsViewModel
 
-
+/**
+ * Composable function to set up the main application UI.
+ *
+ * @param viewModel The ViewModel used to fetch and hold news data.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RssReaderApp(viewModel: NewsViewModel) {
     val systemUiController = rememberSystemUiController()
 
+    // Side effect to set the status bar color to black
     SideEffect {
         systemUiController.setStatusBarColor(
             color = Color.Black,
             darkIcons = false
         )
     }
+
+    // Scaffold to set up the basic structure of the app with a top bar
     Scaffold(
         topBar = {
             TopAppBar(
@@ -58,7 +66,3 @@ fun RssReaderApp(viewModel: NewsViewModel) {
         }
     )
 }
-
-
-
-

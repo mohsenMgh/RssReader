@@ -3,7 +3,7 @@ package com.mason.rssreader
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.rules.TestRule
-import com.mason.rssreader.ui.screen.NewsViewModel
+import com.mason.rssreader.viewmodel.NewsViewModel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.mason.rssreader.data.model.*
@@ -13,10 +13,13 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.*
 import org.junit.*
 
-
+/**
+ * Unit test for NewsViewModel.
+ */
 @OptIn(ExperimentalCoroutinesApi::class)
 class NewsViewModelTest {
 
+    // Rule to allow LiveData to execute instantly
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
 
@@ -24,6 +27,9 @@ class NewsViewModelTest {
     private lateinit var fakeNewsRepository: FakeNewsRepository
     private lateinit var viewModel: NewsViewModel
 
+    /**
+     * Sets up the test environment before each test.
+     */
     @Before
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
@@ -35,11 +41,17 @@ class NewsViewModelTest {
         viewModel = NewsViewModel(fakeNewsRepository)
     }
 
+    /**
+     * Cleans up the test environment after each test.
+     */
     @After
     fun tearDown() {
         Dispatchers.resetMain() // reset the main dispatcher to the original Main dispatcher
     }
 
+    /**
+     * Tests if fetchNews() updates the state flow with a success result.
+     */
     @Test
     fun `test fetchNews updates state flow with success`() = runTest {
         val rssUrl = "http://www.abc.net.au/news/feed/51120/rss.xml"
@@ -89,6 +101,9 @@ class NewsViewModelTest {
         assertEquals("News Title", newsResponse.items[0].title)
     }
 
+    /**
+     * Tests if fetchNews() updates the state flow with a failure result.
+     */
     @Test
     fun `test fetchNews updates state flow with failure`() = runTest {
         val rssUrl = "http://www.abc.net.au/news/feed/51120/rss.xml"

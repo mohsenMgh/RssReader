@@ -11,7 +11,13 @@ import kotlinx.serialization.json.Json
 import org.junit.Assert.*
 import org.junit.Test
 
+/**
+ * Test class for ApiServiceImpl.
+ * It uses a mock HttpClient to simulate network responses for testing.
+ */
 class ApiServiceImplTest {
+
+    // Create a mock HttpClient with a predefined response
     private val mockHttpClient = HttpClient(MockEngine) {
         install(ContentNegotiation) {
             json(Json { ignoreUnknownKeys = true })
@@ -53,8 +59,12 @@ class ApiServiceImplTest {
         }
     }
 
+    // Instance of the ApiServiceImpl using the mock HttpClient
     private val apiService = ApiServiceImpl(mockHttpClient)
 
+    /**
+     * Test that the getNews method returns a NewsResponse with the expected data.
+     */
     @Test
     fun `test getNews returns NewsResponse`() = runBlocking {
         val rssUrl = "http://www.abc.net.au/news/feed/51120/rss.xml"

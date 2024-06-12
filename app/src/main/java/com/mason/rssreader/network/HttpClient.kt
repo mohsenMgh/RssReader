@@ -21,7 +21,12 @@ import kotlinx.serialization.json.Json
 
 private const val NETWORK_TIME_OUT = 6_000L
 
+/**
+ * Provides a configured instance of HttpClient for Android.
+ * This HttpClient includes plugins for content negotiation, logging, timeout settings, and default request settings.
+ */
 val httpClientAndroid = HttpClient(Android) {
+    // Install ContentNegotiation plugin to handle JSON serialization/deserialization
     install(ContentNegotiation) {
         json(
             Json {
@@ -34,12 +39,14 @@ val httpClientAndroid = HttpClient(Android) {
         )
     }
 
+    // Install HttpTimeout plugin to set request, connect, and socket timeout durations
     install(HttpTimeout) {
         requestTimeoutMillis = NETWORK_TIME_OUT
         connectTimeoutMillis = NETWORK_TIME_OUT
         socketTimeoutMillis = NETWORK_TIME_OUT
     }
 
+    // Install Logging plugin to log HTTP requests and responses
     install(Logging) {
         logger = object : Logger {
             override fun log(message: String) {
@@ -49,16 +56,19 @@ val httpClientAndroid = HttpClient(Android) {
         level = LogLevel.ALL
     }
 
+    // Install ResponseObserver plugin to observe HTTP responses
     install(ResponseObserver) {
         onResponse { response ->
             Log.d("HTTP status:", "${response.status.value}")
         }
     }
 
+    // Install DefaultRequest plugin to set default headers for all requests
     install(DefaultRequest) {
         header(HttpHeaders.ContentType, ContentType.Application.Json)
     }
 
+    // Set default request parameters
     defaultRequest {
         contentType(ContentType.Application.Json)
         accept(ContentType.Application.Json)

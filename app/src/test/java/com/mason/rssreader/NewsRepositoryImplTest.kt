@@ -13,11 +13,19 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Test
 
+/**
+ * Unit test for NewsRepositoryImpl.
+ */
 class NewsRepositoryImplTest {
 
+    // Mock ApiService to simulate network responses
     private val mockApiService = mockk<ApiService>()
+    // Instance of NewsRepositoryImpl using the mock ApiService
     private val newsRepository = NewsRepositoryImpl(mockApiService)
 
+    /**
+     * Tests if fetchNews() returns a Success result when the API call is successful.
+     */
     @Test
     fun `test fetchNews returns Success result`() = runBlocking {
         val rssUrl = "http://www.abc.net.au/news/feed/51120/rss.xml"
@@ -50,8 +58,10 @@ class NewsRepositoryImplTest {
                 )
             )
         )
+        // Mock the ApiService response
         coEvery { mockApiService.getNews(rssUrl) } returns mockResponse
 
+        // Fetch news and assert the result is Success
         val result = newsRepository.fetchNews(rssUrl)
         assertTrue(result is Result.Success)
         val newsResponse = (result as Result.Success).data
@@ -61,11 +71,16 @@ class NewsRepositoryImplTest {
         assertEquals("News Title", newsResponse.items[0].title)
     }
 
+    /**
+     * Tests if fetchNews() returns a Failed result when the API call throws an exception.
+     */
     @Test
     fun `test fetchNews returns Failed result on exception`() = runBlocking {
         val rssUrl = "http://www.abc.net.au/news/feed/51120/rss.xml"
+        // Mock the ApiService to throw an exception
         coEvery { mockApiService.getNews(rssUrl) } throws Exception("Network Error")
 
+        // Fetch news and assert the result is Failed
         val result = newsRepository.fetchNews(rssUrl)
         assertTrue(result is Result.Failed)
     }
